@@ -1,0 +1,10 @@
+Laptop,Asus,8000000,5
+Smartphone,Samsung,5000000,10
+Smartwatch,Apple,3000000,8
+Tablet,iPad,7000000,5
+Headphone,Sony,2000000,15
+Speaker,JBL,1500000,12
+Camera,Canon,6000000,7
+Printer,Epson,2500000,4
+Monitor,LG,3500000,9
+Keyboard,Logitech,1000000,null
