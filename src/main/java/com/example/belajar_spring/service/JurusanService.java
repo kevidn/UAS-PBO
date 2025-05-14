@@ -13,6 +13,13 @@ public class JurusanService {
     private final List<Jurusan> jurusanList = new ArrayList<>();
     private Long idCounter = 1L;
 
+    public JurusanService() {
+        // Menambahkan data awal jurusan
+        saveJurusan(new Jurusan(null, "Teknik Informatika"));
+        saveJurusan(new Jurusan(null, "Sistem Informasi"));
+        saveJurusan(new Jurusan(null, "Teknik Komputer"));
+    }
+
     public List<Jurusan> getAllJurusan() {
         return jurusanList;
     }
@@ -25,9 +32,13 @@ public class JurusanService {
         return jurusan;
     }
 
-        public Jurusan getJurusanByID(Long id) {
-        return jurusanList.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+    public Jurusan getJurusanByID(Long id) {
+        return jurusanList.stream()
+            .filter(m -> m.getId().equals(id))
+            .findFirst()
+            .orElse(null);
     }
+
     public void updateJurusan(Jurusan jurusan) {
         jurusanList.replaceAll(m -> m.getId().equals(jurusan.getId()) ? jurusan : m);
     }

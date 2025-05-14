@@ -2,25 +2,32 @@ package com.example.belajar_spring.service;
 
 import com.example.belajar_spring.model.Jurusan;
 import com.example.belajar_spring.model.Mahasiswa;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MahasiswaService {
     private List<Mahasiswa> mahasiswaList = new ArrayList<>();
-    private List<Jurusan> jurusanList = new ArrayList<>();
+    
+    @Autowired
+    private JurusanService jurusanService;
 
     public MahasiswaService() {
-        // Data awal
-        Jurusan jurusanTI = new Jurusan(1L, "Teknik Informatika");
-        Jurusan jurusanSI = new Jurusan(2L, "Sistem Informasi");
-        jurusanList.add(jurusanTI);
-        jurusanList.add(jurusanSI);
+        // Data awal akan ditambahkan setelah konstruktor selesai
+    }
 
-        mahasiswaList.add(new Mahasiswa(1L, "Wahyu", jurusanTI));
-        mahasiswaList.add(new Mahasiswa(2L, "Andi", jurusanSI));
+    @PostConstruct
+    public void init() {
+        // Data awal mahasiswa
+        List<Jurusan> jurusanList = jurusanService.getAllJurusan();
+        if (!jurusanList.isEmpty()) {
+            mahasiswaList.add(new Mahasiswa(1L, "Wahyu", jurusanList.get(0))); // TI
+            mahasiswaList.add(new Mahasiswa(2L, "Andi", jurusanList.get(1)));  // SI
+        }
     }
 
     // CRUD Mahasiswa
@@ -29,7 +36,10 @@ public class MahasiswaService {
     }
 
     public Mahasiswa getMahasiswaById(Long id) {
-        return mahasiswaList.stream().filter(m -> m.getId().equals(id)).findFirst().orElse(null);
+        return mahasiswaList.stream()
+            .filter(m -> m.getId().equals(id))
+            .findFirst()
+            .orElse(null);
     }
 
     public void addMahasiswa(Mahasiswa mahasiswa) {
@@ -44,14 +54,12 @@ public class MahasiswaService {
         mahasiswaList.removeIf(m -> m.getId().equals(id));
     }
 
-    // Data Jurusan
+    // Data Jurusan diambil dari JurusanService
     public List<Jurusan> getAllJurusan() {
-        return jurusanList;
+        return jurusanService.getAllJurusan();
     }
+
     public Jurusan getJurusanById(Long id) {
-	    return jurusanList.stream()
-	        .filter(j -> j.getId().equals(id))
-	        .findFirst()
-	        .orElse(null);
-	}
+        return jurusanService.getJurusanByID(id);
+    }
 }

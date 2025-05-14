@@ -2,6 +2,7 @@ package com.example.belajar_spring.controller;
 
 import com.example.belajar_spring.model.Jurusan;
 import com.example.belajar_spring.model.Mahasiswa;
+import com.example.belajar_spring.service.JurusanService;
 import com.example.belajar_spring.service.MahasiswaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ public class MahasiswaController {
     @Autowired
     private MahasiswaService mahasiswaService;
 
+    @Autowired
+    private JurusanService jurusanService;
+
     @GetMapping
     public String listMahasiswa(Model model) {
         model.addAttribute("mahasiswaList", mahasiswaService.getAllMahasiswa());
@@ -24,7 +28,7 @@ public class MahasiswaController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("mahasiswa", new Mahasiswa());
-        model.addAttribute("jurusanList", mahasiswaService.getAllJurusan());
+        model.addAttribute("jurusanList", jurusanService.getAllJurusan());
         model.addAttribute("isEdit", false);
         return "mahasiswa/add";
     }
@@ -45,7 +49,7 @@ public class MahasiswaController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Mahasiswa mahasiswa = mahasiswaService.getMahasiswaById(id);
         model.addAttribute("mahasiswa", mahasiswa);
-        model.addAttribute("jurusanList", mahasiswaService.getAllJurusan());
+        model.addAttribute("jurusanList", jurusanService.getAllJurusan());
         model.addAttribute("isEdit", true);
         return "mahasiswa/add";
     }
