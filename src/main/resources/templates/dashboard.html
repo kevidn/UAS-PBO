@@ -1,67 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
-    layout:decorate="~{fragments/layout}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
 
 <body>
-    <div layout:fragment="main-content">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h2>Dashboard</h2>
-                <p>Selamat datang di Sistem Pendaftaran Mahasiswa Baru</p>
-            </div>
+<div layout:fragment="main-content">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Dashboard</h2>
+            <p>Selamat datang di Sistem Penjualan HP Bekas</p>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Mahasiswa</h5>
-                        <h2 class="display-4" th:text="${totalMahasiswa}">0</h2>
-                        <a href="/mahasiswa" class="btn btn-light mt-3">Lihat Detail</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">Total Jurusan</h5>
-                        <h2 class="display-4" th:text="${totalJurusan}">0</h2>
-                        <a href="/jurusan" class="btn btn-light mt-3">Lihat Detail</a>
-                    </div>
+    <div class="row">
+        <!-- Total HP -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Daftar HP</h5>
+                    <h2 class="display-4" th:text="${totalPhones}">0</h2>
+                    <a href="/phones" class="btn btn-light mt-3">Lihat Detail</a>
                 </div>
             </div>
         </div>
 
-        <!-- Quick access cards -->
-        <div class="row mt-4">
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h5>Kelola Mahasiswa</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Tambah, edit, atau hapus data mahasiswa</p>
-                        <a href="/mahasiswa" class="btn btn-primary">Daftar Mahasiswa</a>
-                        <a href="/mahasiswa/add" class="btn btn-success">Tambah Mahasiswa</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h5>Kelola Jurusan</h5>
-                    </div>
-                    <div class="card-body">
-                        <p>Tambah, edit, atau hapus data jurusan</p>
-                        <a href="/jurusan" class="btn btn-primary">Daftar Jurusan</a>
-                        <a href="/jurusan/add" class="btn btn-success">Tambah Jurusan</a>
-                    </div>
+        <!-- Total Transaksi -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Histori Transaksi</h5>
+                    <h2 class="display-4" th:text="${totalTransactions}">0</h2>
+                    <a href="/transactions" class="btn btn-dark mt-3">Lihat Detail</a>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
+    <!-- Akses cepat -->
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Kelola HP</h5>
+                </div>
+                <div class="card-body">
+                    <p>Tambah, edit, atau hapus data HP</p>
+                    <a href="/phones" class="btn btn-primary">Daftar HP</a>
+                    <a href="/phones/add" class="btn btn-success">Tambah HP</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5>Kelola Transaksi</h5>
+                </div>
+                <div class="card-body">
+                    <p>Lihat atau hapus data transaksi</p>
+                    <a href="/transactions" class="btn btn-warning">Daftar Transaksi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
