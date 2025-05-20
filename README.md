@@ -5,3 +5,4 @@ Repositori ini merupakan hasil pengerjaan **Ujian Akhir Semester (UAS)** mata ku
 Anggota :
 - Kevin Dzaky Hendratama
 - Fathan Orvala
+- Sattya Runa Pramudita
