@@ -1,18 +1,37 @@
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Sistem Pendaftaran Mahasiswa</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div th:if="${session.loggedInUser}" class="d-flex">
-                    <span class="navbar-text me-3">
-                        <i class="bi bi-person-circle"></i>
-                        <span th:text="${session.loggedInUser}">Username</span>
-                    </span>
-                    <a href="/auth/logout" class="btn btn-outline-danger">Logout</a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">Jual-Beli HP Second</a>
+
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+
+                    <!-- Jika belum login -->
+                    <li class="nav-item" th:if="${loggedInUser == null}">
+                        <a class="nav-link" href="/auth/login">Login</a>
+                    </li>
+                    <li class="nav-item" th:if="${loggedInUser == null}">
+                        <a class="nav-link" href="/auth/register">Register</a>
+                    </li>
+
+                    <!-- Jika sudah login -->
+                    <li class="nav-item dropdown" th:if="${loggedInUser != null}">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                            <img th:src="${loggedInUser.profileImageUrl}"
+                                onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
+                                alt="User" class="rounded-circle" width="30" height="30" />
+                            <span class="ms-2" th:text="${loggedInUser.username}">Username</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/profile">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
             </div>
         </div>
     </nav>
