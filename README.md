@@ -9,3 +9,4 @@ Anggota :
 - Sattya Runa Pramudita
 - Tora Rizal Pratama
 - Zafaa Fanan Abdillah
+- Yusa' Eka Setiawan
