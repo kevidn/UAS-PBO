@@ -16,7 +16,11 @@ public class CartItem {
     @ManyToOne
     private Phone phone;
 
-    private int quantity;
+    private boolean sold = false;
+
+    public CartItem(Phone phone) {
+        this.phone = phone;
+    }
 
     public Long getId() {
         return id;
@@ -42,11 +46,15 @@ public class CartItem {
         this.phone = phone;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public double getSubtotal() {
+        return phone.getPrice();
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public boolean isSold() {
+        return sold;
+    }
+    
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }
