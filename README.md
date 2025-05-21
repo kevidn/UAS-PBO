@@ -8,3 +8,4 @@ Anggota :
 - Fathan Orvala
 - Sattya Runa Pramudita
 - Tora Rizal Pratama
+- Yusa' Eka Setiawan
