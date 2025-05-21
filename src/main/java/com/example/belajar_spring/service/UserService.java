@@ -1,6 +1,7 @@
 package com.example.belajar_spring.service;
 
-import com.example.belajar_spring.model.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 
@@ -10,12 +11,13 @@ import java.util.Map;
 @Service
 public class UserService {
     private final Map<String, String> users = new HashMap<>();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @PostConstruct
     public void init() {
-        // Add default users for testing
-        users.put("admin", "admin123");
-        users.put("user", "user123");
+        // Tambahkan user default dengan password yang sudah di-hash
+        users.put("admin", passwordEncoder.encode("admin123"));
+        users.put("user", passwordEncoder.encode("user123"));
     }
 
     public boolean register(String username, String password) {
@@ -23,11 +25,13 @@ public class UserService {
             password == null || password.trim().isEmpty()) {
             return false;
         }
-        
+
         if (users.containsKey(username)) {
-            return false; // Username already exists
+            return false; // Username sudah ada
         }
-        users.put(username, password);
+
+        String hashedPassword = passwordEncoder.encode(password);
+        users.put(username, hashedPassword);
         return true;
     }
 
@@ -35,7 +39,9 @@ public class UserService {
         if (username == null || password == null) {
             return false;
         }
-        String storedPassword = users.get(username);
-        return storedPassword != null && storedPassword.equals(password);
+
+        String storedHashedPassword = users.get(username);
+
+        return storedHashedPassword != null && passwordEncoder.matches(password, storedHashedPassword);
     }
 }

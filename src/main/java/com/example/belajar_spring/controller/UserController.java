@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginForm() {
-        return "auth/login"; // view login.html
+        return "auth/login";
     }
 
     @PostMapping("/login")
