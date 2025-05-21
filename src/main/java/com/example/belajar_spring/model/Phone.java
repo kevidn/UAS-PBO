@@ -12,13 +12,21 @@ public class Phone {
 
     private String brand;
     private String model;
+
+    @Column(name = "`condition`")
     private String condition;
+
     private double price;
     private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "seller_id")
+    @JoinColumn(name = "seller_id", nullable = false)
     private User seller;
+
+    @Column(columnDefinition = "TEXT", length = 3000)
+    private String deskripsi;
+
+    private boolean sold = false; // Kolom baru
 
     public Phone() {}
 
@@ -30,6 +38,7 @@ public class Phone {
         this.seller = seller;
     }
 
+    // Getter & Setter
     public Long getId() {
         return id;
     }
@@ -81,8 +90,24 @@ public class Phone {
     public String getImageUrl() {
         return imageUrl;
     }
-    
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }

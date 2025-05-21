@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+
+<body>
+<div layout:fragment="main-content" class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg">
+                <img th:src="${phone.imageUrl}" 
+                     class="card-img-top"
+                     onerror="this.src='https://via.placeholder.com/400x300?text=No+Image';"
+                     alt="Gambar HP">
+
+                <div class="card-body">
+                    <h3 class="card-title mb-2" th:text="${phone.brand + ' ' + phone.model}"></h3>
+                    <p class="text-muted" th:text="'Penjual: ' + ${phone.seller.username}"></p>
+
+                    <hr>
+
+                    <p><strong>Kondisi:</strong> <span th:text="${phone.condition}"></span></p>
+                    <p><strong>Harga:</strong>
+                        <span class="text-primary fw-bold"
+                              th:text="'Rp ' + ${#numbers.formatDecimal(phone.price, 0, 'COMMA', 2, 'POINT')}"></span>
+                    </p>
+
+                    <div class="mt-4">
+                        <h5>Deskripsi</h5>
+                        <p th:text="${phone.deskripsi}" class="text-justify"></p>
+                    </div>
+
+                    <a href="/phones" class="btn btn-secondary mt-4">Kembali ke Daftar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
