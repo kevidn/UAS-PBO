@@ -33,5 +33,12 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
     default Phone getPhoneById(Long id) {
         return findById(id).orElse(null);
     }
+
+    Page<Phone> findByBrandContainingIgnoreCaseOrModelContainingIgnoreCaseAndSoldFalse(String keyword, String keyword2,
+            Pageable pageable);
+
+    Page<Phone> findBySoldFalse(Pageable pageable);
+
+    long countBySoldFalse();
 }
 
