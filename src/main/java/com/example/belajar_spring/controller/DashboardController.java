@@ -25,15 +25,22 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String showDashboard(Model model, HttpSession session) {
-        long totalPhones = phoneRepository.count();
-        long totalUsers = userRepository.count();
-        long totalTransactions = transactionRepository.count();
         User loggedInUser = (User) session.getAttribute("loggedInUser");
+        
+        long totalPhones = phoneRepository.countBySoldFalse();
+        long totalUsers = userRepository.count();
+        // No need for total transactions count since we only want to show user's transactions
+        
+        // Get user's total transactions
+        long userTransactions = 0;
+        if (loggedInUser != null) {
+            userTransactions = transactionRepository.countByBuyer(loggedInUser);
+        }
 
         model.addAttribute("loggedInUser", loggedInUser);
         model.addAttribute("totalPhones", totalPhones);
         model.addAttribute("totalUsers", totalUsers);
-        model.addAttribute("totalTransactions", totalTransactions);
+        model.addAttribute("userTransactions", userTransactions);
 
         return "dashboard";
     }

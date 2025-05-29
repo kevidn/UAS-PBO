@@ -3,63 +3,206 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{fragments/layout}">
 
+<head>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
 <body>
-<div layout:fragment="main-content">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2>Dashboard</h2>
-            <p>Selamat datang di Sistem Penjualan HP Bekas</p>
-        </div>
+<div layout:fragment="main-content" class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen relative">
+    <!-- Decorative Elements -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+        <div class="absolute top-1/3 -left-10 w-40 h-40 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 1s"></div>
+        <div class="absolute bottom-20 right-1/4 w-40 h-40 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s"></div>
     </div>
 
-    <div class="row">
-        <!-- Total HP -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Daftar HP</h5>
-                    <h2 class="display-4" th:text="${totalPhones}">0</h2>
-                    <a href="/phones" class="btn btn-light mt-3">Lihat Detail</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Transaksi -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h5 class="card-title">Histori Transaksi</h5>
-                    <h2 class="display-4" th:text="${totalTransactions}">0</h2>
-                    <a href="/transactions" class="btn btn-dark mt-3">Lihat Detail</a>
-                </div>
+    <!-- Welcome Section with Enhanced Design -->
+    <div class="relative">
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-8 mb-8 text-white overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="relative animate-fade-in">
+                <h1 class="text-3xl font-bold flex items-center">
+                    <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                    </svg>
+                    Selamat Datang di Dashboard
+                </h1>
+                <p class="text-blue-100 mt-2 ml-11">Kelola penjualan HP bekas Anda dengan mudah</p>
             </div>
         </div>
     </div>
 
-    <!-- Akses cepat -->
-    <div class="row mt-4">
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h5>Kelola HP</h5>
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 relative animate-fade-in" style="animation-delay: 0.2s">
+        <!-- Total HP Card -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="p-6 bg-gradient-to-r from-blue-500 to-blue-600">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h2 class="text-xl font-semibold text-white">Daftar HP</h2>
+                        <p class="text-4xl font-bold text-white mt-2" th:text="${totalPhones}">0</p>
+                    </div>
+                    <div class="text-white bg-blue-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>Tambah, edit, atau hapus data HP</p>
-                    <a href="/phones" class="btn btn-primary">Daftar HP</a>
-                    <a href="/phones/add" class="btn btn-success">Tambah HP</a>
+                <a href="/phones" class="inline-block mt-4 px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                    Lihat Detail →
+                </a>
+            </div>
+        </div>
+
+        <!-- Transactions Card -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="p-6 bg-gradient-to-r from-yellow-400 to-yellow-500">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h2 class="text-xl font-semibold text-white">Histori Transaksi</h2>
+                        <p class="text-4xl font-bold text-white mt-2" th:text="${userTransactions}">0</p>
+                    </div>
+                    <div class="text-white bg-yellow-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </div>
+                </div>
+                <a href="/transactions/history" class="inline-block mt-4 px-4 py-2 bg-white text-yellow-600 rounded-lg font-semibold hover:bg-yellow-50 transition-colors">
+                    Lihat Detail →
+                </a>
+            </div>
+        </div>
+
+        <!-- Users Card -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all h-full">
+            <div class="p-6 bg-gradient-to-r from-green-500 to-green-600 h-full">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h2 class="text-xl font-semibold text-white">Total Users</h2>
+                        <p class="text-4xl font-bold text-white mt-2" th:text="${totalUsers}">0</p>
+                        <p class="text-green-100 text-sm mt-2">Jumlah pengguna terdaftar</p>
+                    </div>
+                    <div class="text-white bg-green-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Access Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative animate-fade-in" style="animation-delay: 0.4s">
+        <!-- Manage Phones Card -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all">
+            <div class="border-b border-gray-200">
+                <div class="p-4 bg-gradient-to-r from-blue-500 to-blue-600">
+                    <h3 class="text-lg font-semibold text-white flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Kelola HP
+                    </h3>
+                </div>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">Tambah, edit, atau hapus data HP dengan mudah dan cepat</p>
+                <div class="flex space-x-3">
+                    <a href="/phones" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                        Daftar HP
+                    </a>
+                    <a href="/phones/add" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Tambah HP
+                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header bg-warning text-dark">
-                    <h5>Kelola Transaksi</h5>
+        <!-- Transaction History Card -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all">
+            <div class="border-b border-gray-200">
+                <div class="p-4 bg-gradient-to-r from-yellow-400 to-yellow-500">
+                    <h3 class="text-lg font-semibold text-white flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        Histori Transaksi
+                    </h3>
                 </div>
-                <div class="card-body">
-                    <p>Lihat atau hapus data transaksi</p>
-                    <a href="/transactions" class="btn btn-warning">Daftar Transaksi</a>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-4">Pantau semua transaksi yang telah Anda lakukan</p>
+                <a href="/transactions/history" class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors flex items-center w-fit">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    Lihat Transaksi
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Activity Feed Section -->
+    <div class="mt-8 bg-white/80 backdrop-blur-sm rounded-xl shadow-md p-6 animate-fade-in" style="animation-delay: 0.6s">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Aktivitas Terkini
+        </h3>
+        <div class="space-y-4">
+            <div th:if="${latestTransactions != null and !latestTransactions.empty}" 
+                 th:each="transaction : ${latestTransactions}" 
+                 class="flex items-center p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"/>
+                    </svg>
                 </div>
+                <div class="flex-1">
+                    <p class="text-sm text-gray-600">
+                        Transaksi baru untuk 
+                        <span class="font-medium text-gray-900" th:text="${transaction.phone.brand + ' ' + transaction.phone.model}">Phone</span>
+                    </p>
+                    <p class="text-xs text-gray-500" th:text="${#temporals.format(transaction.transactionDate, 'dd MMM yyyy HH:mm')}">Date</p>
+                </div>
+                <span class="text-sm font-medium text-green-600" 
+                      th:text="'Rp ' + ${#numbers.formatDecimal(transaction.phone.price, 0, 'COMMA', 0, 'POINT')}">Price</span>
+            </div>
+            <div th:if="${latestTransactions == null or latestTransactions.empty}" 
+                 class="text-center py-8 text-gray-500">
+                <svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+                </svg>
+                <p>Belum ada aktivitas terbaru</p>
             </div>
         </div>
     </div>
