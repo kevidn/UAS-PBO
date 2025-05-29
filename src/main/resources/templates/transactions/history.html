@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<body>
+<div layout:fragment="main-content" class="p-6">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-8 mb-8 text-white">
+        <h2 class="text-3xl font-bold">📱 Riwayat Transaksi</h2>
+        <p class="mt-2 text-blue-100">Pantau semua pembelian HP yang telah Anda lakukan</p>
+    </div>
+
+    <!-- Stats Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Total Spending Card -->
+        <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-white">Total Pembelian</h3>
+                        <p class="text-4xl font-bold text-white mt-2" 
+                           th:text="'Rp ' + ${#numbers.formatDecimal(totalSpent, 0, 'COMMA', 2, 'POINT')}">Rp 0</p>
+                        <p class="text-green-100 text-sm mt-2">Total pengeluaran Anda</p>
+                    </div>
+                    <div class="text-white bg-green-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Count Card -->
+        <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-white">Total Transaksi</h3>
+                        <p class="text-4xl font-bold text-white mt-2" th:text="${#lists.size(transactions)}">0</p>
+                        <p class="text-blue-100 text-sm mt-2">Jumlah transaksi keseluruhan</p>
+                    </div>
+                    <div class="text-white bg-blue-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Transaction Card -->
+        <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="p-6">
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-white">Transaksi Terakhir</h3>
+                        <p class="text-4xl font-bold text-white mt-2" 
+                           th:text="${!#lists.isEmpty(transactions)} ? ${#temporals.format(transactions[0].transactionDate, 'dd MMM yyyy')} : '-'">-</p>
+                        <p class="text-purple-100 text-sm mt-2">Pembelian HP terakhir Anda</p>
+                    </div>
+                    <div class="text-white bg-purple-400 rounded-lg p-3">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Table with Enhanced Design -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800">Daftar Transaksi</h3>
+            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                Total: [[${#lists.size(transactions)}]] transaksi
+            </span>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <!-- Date Column -->
+                        <th class="px-6 py-3 text-left">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</span>
+                                <div class="flex flex-col">
+                                    <a th:href="@{/transactions/history(sort='transactionDate,desc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/transactions/history(sort='transactionDate,asc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+
+                        <!-- Brand Column -->
+                        <th class="px-6 py-3 text-left">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Brand</span>
+                                <div class="flex flex-col">
+                                    <a th:href="@{/transactions/history(sort='phone.brand,desc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/transactions/history(sort='phone.brand,asc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+
+                        <!-- Model Column -->
+                        <th class="px-6 py-3 text-left">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Model</span>
+                                <div class="flex flex-col">
+                                    <a th:href="@{/transactions/history(sort='phone.model,desc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/transactions/history(sort='phone.model,asc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+
+                        <!-- Price Column -->
+                        <th class="px-6 py-3 text-left">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</span>
+                                <div class="flex flex-col">
+                                    <a th:href="@{/transactions/history(sort='phone.price,desc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/transactions/history(sort='phone.price,asc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+
+                        <!-- Seller Column -->
+                        <th class="px-6 py-3 text-left">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Penjual</span>
+                                <div class="flex flex-col">
+                                    <a th:href="@{/transactions/history(sort='phone.seller.username,desc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/>
+                                        </svg>
+                                    </a>
+                                    <a th:href="@{/transactions/history(sort='phone.seller.username,asc')}" class="text-gray-400 hover:text-gray-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 16l-6-6 1.41-1.41L12 13.17l4.59-4.58L18 10z"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr th:each="transaction : ${transactions}" class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900" th:text="${#temporals.format(transaction.transactionDate, 'dd-MM-yyyy')}">01-01-2025</div>
+                            <div class="text-xs text-gray-500" th:text="${#temporals.format(transaction.transactionDate, 'HH:mm')}">00:00</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" th:text="${transaction.phone.brand}">Brand</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" th:text="${transaction.phone.model}">Model</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="text-sm font-semibold text-green-600" 
+                                  th:text="'Rp ' + ${#numbers.formatDecimal(transaction.phone.price, 0, 'COMMA', 2, 'POINT')}">Rp 0</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                    <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-sm text-gray-900" th:text="${transaction.phone.seller.username}">Seller</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(transactions)}">
+                        <td colspan="5" class="px-6 py-8 text-center">
+                            <div class="text-gray-500">
+                                <svg class="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                                <p class="text-lg font-medium">Belum ada transaksi</p>
+                                <p class="text-sm mt-1">Mulai belanja HP sekarang!</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

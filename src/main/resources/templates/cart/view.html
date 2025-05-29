@@ -3,54 +3,66 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/layout}">
 <body>
-<!-- Include Header -->
-<div th:replace="fragments/header :: header"></div>
+    <div layout:fragment="main-content" class="p-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Keranjang Belanja</h2>
 
-<div layout:fragment="main-content" class="container mt-5">
-    <h2 class="mb-4">Keranjang Belanja</h2>
+            <div th:if="${cartItems == null || cartItems.isEmpty()}" 
+                 class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                <p class="text-blue-700">Keranjang Anda kosong.</p>
+            </div>
 
-    <div th:if="${cartItems.size() > 0}">
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Harga</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="item : ${cartItems}">
-                    <td th:text="${item.phone.brand}"></td>
-                    <td th:text="${item.phone.model}"></td>
-                    <td th:text="'Rp ' + ${#numbers.formatDecimal(item.phone.price, 0, 'COMMA', 2, 'POINT')}"></td>
-                    <td>
-                        <form th:action="@{/cart/remove/{id}(id=${item.phone.id})}" method="post" th:object="${item}">
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            <div th:if="${cartItems != null && !cartItems.isEmpty()}" class="bg-white rounded-lg shadow-md">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Brand</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Model</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Harga</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr th:each="item : ${cartItems}">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" th:text="${item.phone.brand}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" th:text="${item.phone.model}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" 
+                                    th:text="'Rp ' + ${#numbers.formatDecimal(item.phone.price, 0, 'COMMA', 2, 'POINT')}"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <form th:action="@{/cart/remove/{id}(id=${item.phone.id})}" method="post">
+                                        <button type="submit" 
+                                                class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="bg-gray-50">
+                            <tr>
+                                <td colspan="2" class="px-6 py-4 text-right font-semibold text-gray-900">Total:</td>
+                                <td colspan="2" class="px-6 py-4 font-semibold text-gray-900" 
+                                    th:text="'Rp ' + ${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-        <div class="text-end mb-3">
-            <h5>Total: <span class="text-primary fw-bold" th:text="'Rp ' + ${#numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span></h5>
+                <div class="px-6 py-4 bg-gray-50 flex justify-end space-x-4">
+                    <a href="/phones" 
+                       class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
+                        Lanjut Belanja
+                    </a>
+                    <form th:action="@{/cart/checkout}" method="post" class="inline">
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors">
+                            Checkout
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <form th:action="@{/cart/checkout}" method="post" class="text-end">
-            <button type="submit" class="btn btn-success">Checkout</button>
-        </form>
     </div>
-
-    <div th:if="${cartItems.size() == 0}" class="alert alert-info">
-        Keranjang Anda kosong.
-    </div>
-</div>
-
-<!-- Include Footer -->
-<div th:replace="fragments/footer :: footer"></div>
-
-<!-- Optional JS (Bootstrap) -->
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

@@ -1,41 +1,37 @@
 package com.example.belajar_spring.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "cart_items")
 public class CartItem {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private User user;
-
-    @ManyToOne
+    @JoinColumn(name = "phone_id")
     private Phone phone;
 
-    private boolean sold = false;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public CartItem(Phone phone) {
+    public CartItem() {}
+
+    public CartItem(Phone phone, User user) {
         this.phone = phone;
+        this.user = user;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Phone getPhone() {
@@ -46,15 +42,15 @@ public class CartItem {
         this.phone = phone;
     }
 
-    public double getSubtotal() {
-        return phone.getPrice();
+    public User getUser() {
+        return user;
     }
 
-    public boolean isSold() {
-        return sold;
+    public void setUser(User user) {
+        this.user = user;
     }
-    
-    public void setSold(boolean sold) {
-        this.sold = sold;
+
+    public BigDecimal getSubtotal() {
+        return phone != null ? phone.getPrice() : BigDecimal.ZERO;
     }
 }

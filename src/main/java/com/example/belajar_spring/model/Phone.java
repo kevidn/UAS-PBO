@@ -1,5 +1,7 @@
 package com.example.belajar_spring.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +18,7 @@ public class Phone {
     @Column(name = "`condition`")
     private String condition;
 
-    private double price;
+    private BigDecimal price;
     private String imageUrl;
 
     @ManyToOne
@@ -26,11 +28,12 @@ public class Phone {
     @Column(columnDefinition = "TEXT", length = 3000)
     private String deskripsi;
 
-    private boolean sold = false; // Kolom baru
+    @Column(columnDefinition = "boolean default false")
+    private boolean sold = false; 
 
     public Phone() {}
 
-    public Phone(String brand, String model, String condition, double price, User seller) {
+    public Phone(String brand, String model, String condition, BigDecimal price, User seller) {
         this.brand = brand;
         this.model = model;
         this.condition = condition;
@@ -71,11 +74,11 @@ public class Phone {
         this.condition = condition;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

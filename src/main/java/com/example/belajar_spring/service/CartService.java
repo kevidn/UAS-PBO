@@ -2,60 +2,98 @@ package com.example.belajar_spring.service;
 
 import com.example.belajar_spring.model.CartItem;
 import com.example.belajar_spring.model.Phone;
-
+import com.example.belajar_spring.model.Transaction;
+import com.example.belajar_spring.model.User;
+import com.example.belajar_spring.repository.CartItemRepository;
+import com.example.belajar_spring.repository.PhoneRepository;
+import com.example.belajar_spring.repository.TransactionRepository;
 import jakarta.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class CartService {
-    private List<CartItem> cartItems = new ArrayList<>();
+    @Autowired
+    private PhoneRepository phoneRepository;
 
-    @SuppressWarnings("unchecked")
-    public void addToCart(HttpSession session, Phone phone) {
-        // Ambil cart dari session atau buat baru
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
-        }
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
-        // Cek apakah sudah ada di keranjang
-        boolean alreadyInCart = cartItems.stream()
-                .anyMatch(item -> item.getPhone().getId().equals(phone.getId()));
+    @Autowired
+    private TransactionRepository transactionRepository;
 
-        if (!alreadyInCart) {
-            cartItems.add(new CartItem(phone));
+    public List<CartItem> getCartItems(User user) {
+        return cartItemRepository.findByUser(user);
+    }
+
+    public void addToCart(User user, Phone phone) {
+        // Check if phone is already in anyone's cart
+        if (!phone.isSold()) {
+            // Create new cart item
+            CartItem cartItem = new CartItem();
+            cartItem.setPhone(phone);
+            cartItem.setUser(user);
+            
+            // Save cart item
+            cartItemRepository.save(cartItem);
+            
+            // Update phone status
+            phone.setSold(true);
+            phoneRepository.save(phone);
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public List<CartItem> getCartItems(HttpSession session) {
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems);
+    public void removeFromCart(User user, Long phoneId) {
+        Phone phone = phoneRepository.findById(phoneId).orElse(null);
+        if (phone != null) {
+            // Find cart item for this user and phone
+            CartItem cartItem = cartItemRepository.findByUserAndPhone(user, phone);
+            
+            if (cartItem != null) {
+                // Remove from cart
+                cartItemRepository.delete(cartItem);
+                
+                // Update phone status
+                phone.setSold(false);
+                phoneRepository.save(phone);
+            }
         }
-        return cartItems;
     }
 
-
-    public double getTotalPrice() {
+    public BigDecimal calculateTotal(User user) {
+        List<CartItem> cartItems = cartItemRepository.findByUser(user);
         return cartItems.stream()
-                .mapToDouble(CartItem::getSubtotal)
-                .sum();
+                .map(item -> item.getPhone().getPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public void clearCart() {
-        cartItems.clear();
-    }
-
-    public void removeFromCart(HttpSession session, Long phoneId) {
-        List<CartItem> cartItems = getCartItems(session);
-        cartItems.removeIf(item -> item.getPhone().getId().equals(phoneId));
-        session.setAttribute("cartItems", cartItems);
+    public void processCheckout(User user) {
+        List<CartItem> cartItems = cartItemRepository.findByUser(user);
+        
+        // Create transactions for each phone
+        for (CartItem item : cartItems) {
+            Phone phone = item.getPhone();
+            
+            // Create new transaction
+            Transaction transaction = new Transaction();
+            transaction.setPhone(phone);
+            transaction.setBuyer(user);
+            transaction.setTransactionDate(LocalDateTime.now());
+            
+            // Save transaction first
+            transactionRepository.save(transaction);
+            
+            // Then delete cart item
+            cartItemRepository.delete(item);
+            
+            // Finally delete phone
+            phoneRepository.delete(phone);
+        }
     }
 }
