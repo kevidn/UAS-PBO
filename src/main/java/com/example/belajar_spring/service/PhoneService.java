@@ -8,6 +8,7 @@ import com.example.belajar_spring.repository.UserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,7 +41,7 @@ public class PhoneService {
         phone.setBrand(form.getBrand());
         phone.setModel(form.getModel());
         phone.setCondition(form.getCondition());
-        phone.setPrice(form.getPrice());
+        phone.setPrice(BigDecimal.valueOf(form.getPrice()));
         phone.setDeskripsi(form.getDeskripsi());
 
         // Simulasi penyimpanan image ke direktori lokal
@@ -65,9 +66,9 @@ public class PhoneService {
         Pageable pageable = PageRequest.of(page, size, sort);
 
         if (keyword != null && !keyword.isEmpty()) {
-            return phoneRepository.findByBrandContainingIgnoreCaseOrModelContainingIgnoreCase(keyword, keyword, pageable);
+            return phoneRepository.findByBrandContainingIgnoreCaseOrModelContainingIgnoreCaseAndSoldFalse(keyword, keyword, pageable);
         } else {
-            return phoneRepository.findAll(pageable);
+            return phoneRepository.findBySoldFalse(pageable);
         }
     }
 

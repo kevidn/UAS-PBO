@@ -11,6 +11,7 @@ import com.example.belajar_spring.service.PhoneService;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -99,7 +100,7 @@ public class PhoneController {
         phoneForm.setBrand(phone.getBrand());
         phoneForm.setModel(phone.getModel());
         phoneForm.setCondition(phone.getCondition());
-        phoneForm.setPrice(phone.getPrice());
+        phoneForm.setPrice(phone.getPrice() != null ? phone.getPrice().doubleValue() : null);
         phoneForm.setDeskripsi(phone.getDeskripsi());
         // jangan set image, karena itu MultipartFile
 
@@ -117,7 +118,7 @@ public class PhoneController {
         phone.setBrand(form.getBrand());
         phone.setModel(form.getModel());
         phone.setCondition(form.getCondition());
-        phone.setPrice(form.getPrice());
+        phone.setPrice(form.getPrice() != null ? BigDecimal.valueOf(form.getPrice()) : null);
         phone.setDeskripsi(form.getDeskripsi());
 
         // proses upload gambar jika ada file baru
