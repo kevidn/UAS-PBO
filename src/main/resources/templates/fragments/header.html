@@ -1,37 +1,80 @@
-<header th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="/dashboard">Jual-Beli HP Second</a>
+<header th:fragment="header" class="bg-white shadow-sm fixed w-full top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
+        <div class="flex justify-between h-16">
+            <!-- Logo/Brand -->
+            <div class="flex">
+                <a href="/dashboard" class="flex items-center text-xl font-bold text-gray-800 whitespace-nowrap">
+                    Jual-Beli HP Second
+                </a>
+            </div>
 
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
+            <!-- Right side navigation -->
+            <div class="flex items-center">
+                <!-- Not logged in -->
+                <div th:if="${loggedInUser == null}" class="flex space-x-4">
+                    <a href="/auth/login" 
+                       class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        Login
+                    </a>
+                    <a href="/auth/register" 
+                       class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                        Register
+                    </a>
+                </div>
 
-                    <!-- Jika belum login -->
-                    <li class="nav-item" th:if="${loggedInUser == null}">
-                        <a class="nav-link" href="/auth/login">Login</a>
-                    </li>
-                    <li class="nav-item" th:if="${loggedInUser == null}">
-                        <a class="nav-link" href="/auth/register">Register</a>
-                    </li>
-
-                    <!-- Jika sudah login -->
-                    <li class="nav-item dropdown" th:if="${loggedInUser != null}">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                            <img th:src="${loggedInUser.profileImageUrl}"
-                                onerror="this.onerror=null;this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
-                                alt="User" class="rounded-circle" width="30" height="30" />
-                            <span class="ms-2" th:text="${loggedInUser.username}">Username</span>
+                <!-- Logged in -->
+                <div th:if="${loggedInUser != null}" class="relative">
+                    <button type="button" 
+                            @click="open = !open"
+                            class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none">
+                        <img th:src="${loggedInUser.profileImageUrl}"
+                             onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
+                             class="h-8 w-8 rounded-full" 
+                             alt="User">
+                        <span class="text-sm font-medium" th:text="${loggedInUser.username}">Username</span>
+                        <svg class="w-4 h-4 transition-transform duration-200" 
+                             :class="{'rotate-180': open}"
+                             fill="none" 
+                             stroke="currentColor" 
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <div x-cloak
+                         x-show="open"
+                         @click.away="open = false"
+                         x-transition:enter="transition ease-out duration-100"
+                         x-transition:enter-start="transform opacity-0 scale-95"
+                         x-transition:enter-end="transform opacity-100 scale-100"
+                         x-transition:leave="transition ease-in duration-75"
+                         x-transition:leave-start="transform opacity-100 scale-100"
+                         x-transition:leave-end="transform opacity-0 scale-95"
+                         class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
+                        <a href="/cart" 
+                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                Cart
+                            </div>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/profile">Profil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="/auth/logout">Logout</a></li>
-                        </ul>
-                    </li>
-
-
-                </ul>
+                        <div class="border-t border-gray-100"></div>
+                        <a href="/auth/logout" 
+                           class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Logout
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
