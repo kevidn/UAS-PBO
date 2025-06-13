@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="main-content" class="p-6">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl shadow-lg p-8 mb-8 text-white">
+        <h2 class="text-3xl font-bold">👥 About Us</h2>
+        <p class="mt-2 text-blue-100">Meet our amazing team behind this project</p>
+    </div>
+
+    <!-- Team Members Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in">
+        <!-- Kevin -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/kevidn.png" 
+                     alt="Kevin"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Kevin</h3>
+                <p class="text-gray-600 mt-1">24111814055</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/kevidn" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @kevidn
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fathan -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/atangorp.png" 
+                     alt="Fathan Orvala"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Fathan Orvala</h3>
+                <p class="text-gray-600 mt-1">24111814063</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/atangorp" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @atangorp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sattya -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/adalahruna.png" 
+                     alt="Sattya Runa Pramudita"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Sattya Runa Pramudita</h3>
+                <p class="text-gray-600 mt-1">24111814038</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/adalahruna" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @adalahruna
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tora -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/torarizal.png" 
+                     alt="Tora Rizal Pratama"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Tora Rizal Pratama</h3>
+                <p class="text-gray-600 mt-1">2411814059</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/torarizal" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @torarizal
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yusa -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/Yusa137D.png" 
+                     alt="Yusa' Eka Setiawan"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Yusa' Eka Setiawan</h3>
+                <p class="text-gray-600 mt-1">24111814137</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/Yusa137D" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @Yusa137D
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zafaa -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/ZafaaFA12.png" 
+                     alt="Zafaa Fanan Abdillah"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Zafaa Fanan Abdillah</h3>
+                <p class="text-gray-600 mt-1">24111814139</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/ZafaaFA12" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @ZafaaFA12
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ammar -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/branngibran.png" 
+                     alt="Ammar Gibran"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Ammar Gibran</h3>
+                <p class="text-gray-600 mt-1">24111814097</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/branngibran" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @branngibran
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fakhrur -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.02] transition-all">
+            <div class="relative">
+                <img src="https://github.com/fakhrurrohmansaid74.png" 
+                     alt="Fakhrur Rohman Sa'id"
+                     class="w-full h-48 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800">Fakhrur Rohman Sa'id</h3>
+                <p class="text-gray-600 mt-1">24111814118</p>
+                <div class="mt-4 flex items-center text-gray-600">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <a href="https://github.com/fakhrurrohmansaid74" 
+                       class="text-blue-600 hover:text-blue-800 transition-colors"
+                       target="_blank">
+                        @fakhrurrohmansaid74
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Project Information -->
+    <div class="mt-12 bg-white rounded-xl shadow-md p-8 animate-fade-in">
+        <h3 class="text-2xl font-bold text-gray-800 mb-4">About The Project</h3>
+        <p class="text-gray-600 leading-relaxed">
+            This project is a Spring Boot application for managing second-hand phone sales.
+            Built with modern technologies and best practices, it provides a robust platform
+            for users to list their phones for sale and manage transactions efficiently.
+        </p>
+        
+        <div class="mt-8">
+            <h4 class="text-lg font-semibold text-gray-800 mb-2">Technologies Used</h4>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Spring Boot</span>
+                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">MySQL</span>
+                <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Thymeleaf</span>
+                <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm">Tailwind CSS</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,81 +1,127 @@
-<header th:fragment="header" class="bg-white shadow-sm fixed w-full top-0 z-50">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
-        <div class="flex justify-between h-16">
-            <!-- Logo/Brand -->
-            <div class="flex">
-                <a href="/dashboard" class="flex items-center text-xl font-bold text-gray-800 whitespace-nowrap">
-                    Jual-Beli HP Second
-                </a>
-            </div>
-
-            <!-- Right side navigation -->
-            <div class="flex items-center">
-                <!-- Not logged in -->
-                <div th:if="${loggedInUser == null}" class="flex space-x-4">
-                    <a href="/auth/login" 
-                       class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                        Login
-                    </a>
-                    <a href="/auth/register" 
-                       class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                        Register
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <!-- Add this in the head section or in a separate CSS file -->
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+    <!-- Other head elements like CSS links -->
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header th:fragment="header" class="bg-white shadow-sm fixed w-full top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" x-data="{ open: false }">
+            <div class="flex justify-between h-16">
+                <!-- Logo/Brand -->
+                <div class="flex">
+                    <a href="/dashboard" class="flex items-center text-xl font-bold text-gray-800 whitespace-nowrap">
+                        Jual-Beli HP Second
                     </a>
                 </div>
 
-                <!-- Logged in -->
-                <div th:if="${loggedInUser != null}" class="relative">
-                    <button type="button" 
-                            @click="open = !open"
-                            class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none">
-                        <img th:src="${loggedInUser.profileImageUrl}"
-                             onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
-                             class="h-8 w-8 rounded-full" 
-                             alt="User">
-                        <span class="text-sm font-medium" th:text="${loggedInUser.username}">Username</span>
-                        <svg class="w-4 h-4 transition-transform duration-200" 
-                             :class="{'rotate-180': open}"
-                             fill="none" 
-                             stroke="currentColor" 
-                             viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
-                    
-                    <!-- Dropdown menu -->
-                    <div x-cloak
-                         x-show="open"
-                         @click.away="open = false"
-                         x-transition:enter="transition ease-out duration-100"
-                         x-transition:enter-start="transform opacity-0 scale-95"
-                         x-transition:enter-end="transform opacity-100 scale-100"
-                         x-transition:leave="transition ease-in duration-75"
-                         x-transition:leave-start="transform opacity-100 scale-100"
-                         x-transition:leave-end="transform opacity-0 scale-95"
-                         class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
-                        <a href="/cart" 
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            <div class="flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                </svg>
-                                Cart
-                            </div>
+                <!-- Right side navigation -->
+                <div class="flex items-center">
+                    <!-- Not logged in -->
+                    <div th:if="${loggedInUser == null}" class="flex space-x-4">
+                        <a href="/auth/login" 
+                           class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            Login
                         </a>
-                        <div class="border-t border-gray-100"></div>
-                        <a href="/auth/logout" 
-                           class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                            <div class="flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                                </svg>
-                                Logout
-                            </div>
+                        <a href="/auth/register" 
+                           class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                            Register
                         </a>
+                    </div>
+
+                    <!-- Logged in -->
+                    <div th:if="${loggedInUser != null}" class="relative">
+                        <button type="button" 
+                                @click="open = !open"
+                                class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none">
+                            <img th:src="${loggedInUser.profileImageUrl}"
+                                 onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';"
+                                 class="h-8 w-8 rounded-full" 
+                                 alt="User">
+                            <span class="text-sm font-medium" th:text="${loggedInUser.username}">Username</span>
+                            <svg class="w-4 h-4 transition-transform duration-200" 
+                                 :class="{'rotate-180': open}"
+                                 fill="none" 
+                                 stroke="currentColor" 
+                                 viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dropdown menu -->
+                        <div x-cloak
+                             x-show="open"
+                             @click.away="open = false"
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="transform opacity-0 scale-95"
+                             x-transition:enter-end="transform opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="transform opacity-100 scale-100"
+                             x-transition:leave-end="transform opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
+                            <a href="/cart" 
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                    Cart
+                                </div>
+                            </a>
+                            <div class="border-t border-gray-100"></div>
+                            <a href="/auth/logout" 
+                               class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                    </svg>
+                                    Logout
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main class="pt-16">
+        <!-- Your main content goes here -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-inner">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <div class="text-sm text-gray-500">
+                    &copy; 2023 Your Company. All rights reserved.
+                </div>
+                <div class="mt-2 sm:mt-0">
+                    <a href="/about" class="text-sm text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
+                        About Us
+                    </a>
+                    <a href="/contact" class="text-sm text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md">
+                        Contact
+                    </a>
+                </div>
+            </div>
         </div>
-    </nav>
-</header>
+    </footer>
+</body>
+</html>
